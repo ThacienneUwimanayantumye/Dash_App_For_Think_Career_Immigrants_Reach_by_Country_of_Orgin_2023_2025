@@ -99,8 +99,8 @@ def update_map(region, role):
 
     # Add annotations for total counts
     fig.add_annotation(
-        x=0.5,
-        y=0.95,
+        x=0.01,
+        y=0.01,
         xref="paper",
         yref="paper",
         text=f"Total {role}s: {total_people} | Total Countries: {total_countries}",
