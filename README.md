@@ -4,7 +4,7 @@ This interactive web application built with [Dash](https://dash.plotly.com/) vis
 
 ## 🚀 Live Demo
 
-🔗 [Visit the Live Dashboard]([[https://your-render-url.onrender.com](https://dash-app-for-think-career-immigrants.onrender.com/)])  
+🔗 [Visit the Live Dashboard](https://dash-app-for-think-career-immigrants.onrender.com/)  
 ---
 
 ## 📊 Features
