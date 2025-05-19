@@ -66,11 +66,20 @@ app.layout = html.Div([
         )
     ], style={"width": "30%", "display": "inline-block", "verticalAlign": "top"}),
 
-    dcc.Graph(id="map-graph", style={"height": "600px"})
+    dcc.Graph(id="map-graph", style={"height": "600px"}),
+    
+    # Add total counts display
+    html.Div(id="total-counts", style={
+        "textAlign": "center",
+        "marginTop": "20px",
+        "fontSize": "18px",
+        "fontWeight": "bold"
+    })
 ])
 
 @app.callback(
-    Output("map-graph", "figure"),
+    [Output("map-graph", "figure"),
+     Output("total-counts", "children")],
     [Input("region-dropdown", "value"),
      Input("role-dropdown", "value")]
 )
@@ -81,6 +90,10 @@ def update_map(region, role):
 
     country_counts = filtered_df["Country"].value_counts().reset_index()
     country_counts.columns = ["Country", "Count"]
+
+    # Calculate totals
+    total_people = filtered_df.shape[0]
+    total_countries = len(filtered_df["Country"].unique())
 
     fig = px.choropleth(
         country_counts,
@@ -98,7 +111,13 @@ def update_map(region, role):
         coloraxis_colorbar=dict(title="Count")
     )
 
-    return fig
+    # Create the total counts display
+    total_counts_display = html.Div([
+        html.P(f"Total number of {role}s: {total_people}"),
+        html.P(f"Total number of countries: {total_countries}")
+    ])
+
+    return fig, total_counts_display
 
 # This is important for gunicorn
 server = app.server
