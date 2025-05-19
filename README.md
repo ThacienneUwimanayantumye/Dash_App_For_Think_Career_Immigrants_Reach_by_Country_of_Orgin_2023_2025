@@ -1,12 +1,10 @@
 # 🌍 Think Career Mentorship Program Dashboard
 
-This is an interactive web application built with [Dash](https://dash.plotly.com/) that visualizes the geographic distribution of mentors and mentees in the Think Career Mentorship Program. This dashboard enables users to explore participant demographics by region and role (mentor/mentee).
+This interactive web application built with [Dash](https://dash.plotly.com/) visualizes the geographic distribution of mentors and mentees in the Think Career Mentorship Program. This dashboard lets users explore participant demographics by region and role (mentor/mentee).
 
 ## 🚀 Live Demo
 
-🔗 [Visit the Live Dashboard]([https://your-render-url.onrender.com](https://dash-app-for-think-career-immigrants.onrender.com/))  
-*(Replace with your actual Render URL)*
-
+🔗 [Visit the Live Dashboard]([[https://your-render-url.onrender.com](https://dash-app-for-think-career-immigrants.onrender.com/)])  
 ---
 
 ## 📊 Features
