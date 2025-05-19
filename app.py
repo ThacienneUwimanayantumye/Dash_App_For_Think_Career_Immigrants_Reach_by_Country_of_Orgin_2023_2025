@@ -66,15 +66,20 @@ app.layout = html.Div([
         )
     ], style={"width": "30%", "display": "inline-block", "verticalAlign": "top"}),
 
-    dcc.Graph(id="map-graph", style={"height": "600px"}),
-    
-    # Add total counts display
+    # Add total counts display at the top
     html.Div(id="total-counts", style={
         "textAlign": "center",
         "marginTop": "20px",
-        "fontSize": "18px",
-        "fontWeight": "bold"
-    })
+        "marginBottom": "20px",
+        "fontSize": "20px",
+        "fontWeight": "bold",
+        "backgroundColor": "#f8f9fa",
+        "padding": "15px",
+        "borderRadius": "5px",
+        "boxShadow": "0 2px 4px rgba(0,0,0,0.1)"
+    }),
+
+    dcc.Graph(id="map-graph", style={"height": "600px"})
 ])
 
 @app.callback(
@@ -111,10 +116,17 @@ def update_map(region, role):
         coloraxis_colorbar=dict(title="Count")
     )
 
-    # Create the total counts display
+    # Create the total counts display with more prominent styling
     total_counts_display = html.Div([
-        html.P(f"Total number of {role}s: {total_people}"),
-        html.P(f"Total number of countries: {total_countries}")
+        html.Div([
+            html.Span("Total number of ", style={"color": "#666"}),
+            html.Span(f"{role}s: ", style={"color": "#2c3e50", "fontWeight": "bold"}),
+            html.Span(f"{total_people}", style={"color": "#e74c3c", "fontWeight": "bold"})
+        ]),
+        html.Div([
+            html.Span("Total number of countries: ", style={"color": "#666"}),
+            html.Span(f"{total_countries}", style={"color": "#e74c3c", "fontWeight": "bold"})
+        ])
     ])
 
     return fig, total_counts_display
