@@ -38,7 +38,6 @@ combined_data["Region"] = combined_data["Country"].apply(assign_region)
 
 # --- Create App ---
 app = dash.Dash(__name__)
-server = app.server  # This is important for Render
 
 all_regions = ["Africa", "Asia", "Europe", "North America", "South America", "Oceania", "Antarctica", "Other"]
 
@@ -102,7 +101,7 @@ def update_map(region, role):
     return fig
 
 # This is important for gunicorn
-application = server
+server = app.server
 
 if __name__ == "__main__":
     app.run_server(debug=True)
