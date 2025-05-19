@@ -2,6 +2,7 @@ import pandas as pd
 import plotly.express as px
 import dash
 from dash import dcc, html, Input, Output
+from flask import Flask
 
 # --- Load Data ---
 mentors = pd.read_excel("data/unique_mentors.xlsx")
@@ -37,7 +38,8 @@ def assign_region(country):
 combined_data["Region"] = combined_data["Country"].apply(assign_region)
 
 # --- Create App ---
-app = dash.Dash(__name__)
+server = Flask(__name__)
+app = dash.Dash(__name__, server=server)
 
 all_regions = ["Africa", "Asia", "Europe", "North America", "South America", "Oceania", "Antarctica", "Other"]
 
@@ -101,7 +103,7 @@ def update_map(region, role):
     return fig
 
 # This is important for gunicorn
-server = app.server
+application = server
 
 if __name__ == "__main__":
     app.run_server(debug=True)
