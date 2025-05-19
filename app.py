@@ -66,25 +66,11 @@ app.layout = html.Div([
         )
     ], style={"width": "30%", "display": "inline-block", "verticalAlign": "top"}),
 
-    # Add total counts display at the top
-    html.Div(id="total-counts", style={
-        "textAlign": "center",
-        "marginTop": "20px",
-        "marginBottom": "20px",
-        "fontSize": "20px",
-        "fontWeight": "bold",
-        "backgroundColor": "#f8f9fa",
-        "padding": "15px",
-        "borderRadius": "5px",
-        "boxShadow": "0 2px 4px rgba(0,0,0,0.1)"
-    }),
-
     dcc.Graph(id="map-graph", style={"height": "600px"})
 ])
 
 @app.callback(
-    [Output("map-graph", "figure"),
-     Output("total-counts", "children")],
+    Output("map-graph", "figure"),
     [Input("region-dropdown", "value"),
      Input("role-dropdown", "value")]
 )
@@ -111,25 +97,31 @@ def update_map(region, role):
         hover_name="Country"
     )
 
-    fig.update_layout(
-        geo=dict(showframe=False, showcoastlines=True),
-        coloraxis_colorbar=dict(title="Count")
+    # Add annotations for total counts
+    fig.add_annotation(
+        x=0.5,
+        y=0.95,
+        xref="paper",
+        yref="paper",
+        text=f"Total {role}s: {total_people} | Total Countries: {total_countries}",
+        showarrow=False,
+        font=dict(
+            size=16,
+            color="#2c3e50"
+        ),
+        bgcolor="rgba(255, 255, 255, 0.8)",
+        bordercolor="rgba(0, 0, 0, 0.2)",
+        borderwidth=1,
+        borderpad=4
     )
 
-    # Create the total counts display with more prominent styling
-    total_counts_display = html.Div([
-        html.Div([
-            html.Span("Total number of ", style={"color": "#666"}),
-            html.Span(f"{role}s: ", style={"color": "#2c3e50", "fontWeight": "bold"}),
-            html.Span(f"{total_people}", style={"color": "#e74c3c", "fontWeight": "bold"})
-        ]),
-        html.Div([
-            html.Span("Total number of countries: ", style={"color": "#666"}),
-            html.Span(f"{total_countries}", style={"color": "#e74c3c", "fontWeight": "bold"})
-        ])
-    ])
+    fig.update_layout(
+        geo=dict(showframe=False, showcoastlines=True),
+        coloraxis_colorbar=dict(title="Count"),
+        margin=dict(t=100)  # Add more top margin for the annotation
+    )
 
-    return fig, total_counts_display
+    return fig
 
 # This is important for gunicorn
 server = app.server
