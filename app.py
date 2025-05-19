@@ -37,11 +37,12 @@ def assign_region(country):
 combined_data["Region"] = combined_data["Country"].apply(assign_region)
 
 # --- Create App ---
-app = dash.Dash(__name__)
+app_dash = dash.Dash(__name__)
+server = app_dash.server  # This is needed for Render
 
 all_regions = ["Africa", "Asia", "Europe", "North America", "South America", "Oceania", "Antarctica", "Other"]
 
-app.layout = html.Div([
+app_dash.layout = html.Div([
     html.H2("🌍 Interactive Mentor & Mentee Map by Country and Region"),
 
     html.Div([
@@ -69,7 +70,7 @@ app.layout = html.Div([
     dcc.Graph(id="map-graph", style={"height": "600px"})
 ])
 
-@app.callback(
+@app_dash.callback(
     Output("map-graph", "figure"),
     [Input("region-dropdown", "value"),
      Input("role-dropdown", "value")]
@@ -101,4 +102,4 @@ def update_map(region, role):
     return fig
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app_dash.run_server(debug=True)
