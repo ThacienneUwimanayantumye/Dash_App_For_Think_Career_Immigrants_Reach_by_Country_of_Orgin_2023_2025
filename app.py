@@ -130,7 +130,7 @@ def update_map(region, role):
         locations="Country",
         locationmode="country names",
         color="Count",
-        color_continuous_scale="Reds",  # Changed to Reds
+        color_continuous_scale="reds",
         title=f"{role}s by Country ({region if region != 'ALL' else 'All Regions'})",
         projection="natural earth",
         hover_name="Country"
