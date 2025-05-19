@@ -101,5 +101,8 @@ def update_map(region, role):
 
     return fig
 
+# This is important for gunicorn
+application = server
+
 if __name__ == "__main__":
     app.run_server(debug=True)
